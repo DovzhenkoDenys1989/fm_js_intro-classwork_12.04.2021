@@ -112,9 +112,46 @@ class MyArray {
     return newArray;
   }
 
+  flat(depth) {
+    let result = new MyArray();
+
+    /*for (let i = 0; i < this.length; i++) {
+      if (MyArray.isMyArray(this[i]) && depth > 0) {
+        result = result.concat(this[i].flat(depth - 1));
+      } else if (this[i] !== undefined) {
+        result.push(this[i]);
+      }
+    }*/
+
+    this.forEach((item) => {
+      if (MyArray.isMyArray(item) && depth > 0) {
+        result = result.concat(item.flat(depth - 1));
+      } else if (item !== undefined) {
+        result.push(item);
+      }
+    });
+
+    return result;
+  }
+
   static isMyArray(arr) {
     return arr instanceof MyArray;
   }
 }
 
 //console.dir(MyArray);
+
+const arr = new MyArray(
+  1,
+  1,
+  1,
+  1,
+  new MyArray(2, 2, 2, 2, new MyArray(3, 3, 3, 3, new MyArray(4, 4, 4, 4))),
+  undefined,
+  undefined,
+  undefined,
+  1,
+  1,
+  1,
+  1
+);
